@@ -1,4 +1,4 @@
-import {Hydrate, QueryClient, QueryClientProvider} from 'react-query';
+import {Hydrate, QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import { ThemeProvider} from 'styled-components';
 import {GlobalStyle} from "../core/styles/GlobalStyles";
 import {styledTheme} from "../core/styles/styled";
