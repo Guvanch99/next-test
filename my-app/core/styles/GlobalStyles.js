@@ -32,12 +32,15 @@ export const GlobalStyle = createGlobalStyle`
 
   html,
   body {
-    height: 100%;
     padding: 0;
     margin: 0;
     color: #fff;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6, p {
+      margin: 0;
   }
 
   a {
@@ -51,6 +54,7 @@ export const GlobalStyle = createGlobalStyle`
 
   #__next {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
+    background:                 aqua;
   }
 `
