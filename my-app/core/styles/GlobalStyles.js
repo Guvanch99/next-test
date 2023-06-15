@@ -55,6 +55,6 @@ export const GlobalStyle = createGlobalStyle`
   #__next {
     width: 100%;
     min-height: 100vh;
-    background:                 aqua;
+    background: #151515;
   }
 `
