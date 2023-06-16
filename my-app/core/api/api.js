@@ -15,9 +15,9 @@ export const getGameById = async id => {
     return data
 }
 
-export const getGames = async () => {
+export const getGames = async (page) => {
     try {
-        const { data } = await api.get(`/games?key=${API_KEY}`);
+        const { data } = await api.get('/games', { params: { page, key: API_KEY } });
         return data.results;
     } catch (error) {
         console.error('Error getting games:', error);
