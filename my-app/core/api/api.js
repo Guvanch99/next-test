@@ -1,7 +1,5 @@
 import axios from "axios";
-
-const API_URL = process.env.API_URL
-const API_KEY = process.env.API_KEY
+import {API_KEY, API_URL} from "../../config";
 
 export const api = axios.create({
     baseURL: `${API_URL}`,
@@ -15,9 +13,13 @@ export const getGameById = async id => {
     return data
 }
 
-export const getGames = async (page) => {
+export const getGames = async (params={}) => {
     try {
-        const { data } = await api.get('/games', { params: { page, key: API_KEY } });
+        console.log(API_URL, API_KEY)
+        const { data } = await api.get('/games', {
+            params: { ...params, page_size: 4, key: API_KEY }
+        });
+
         return data.results;
     } catch (error) {
         console.error('Error getting games:', error);
