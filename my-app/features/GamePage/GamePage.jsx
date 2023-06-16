@@ -41,7 +41,7 @@ const GameReleaseDate = styled.span`
   margin-bottom: 10px;
 `;
 
-const GameDescription = styled.p`
+const GameDescription = styled.div`
   font-size: 16px;
   margin-bottom: 10px;
 `;

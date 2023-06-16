@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from "next/link";
 
-const GameCardContainer = styled.div`
+const GameCardContainer = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,6 +10,7 @@ const GameCardContainer = styled.div`
   background-color: #4f4d4d;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
+  max-width: 400px;
 `;
 
 const GameTitle = styled.h2`
@@ -17,9 +18,6 @@ const GameTitle = styled.h2`
   font-weight: bold;
   margin-bottom: 10px;
 
-  &:hover {
-    color: #0000FFFF;
-  }
 `;
 
 const GamePoster = styled.img`
@@ -54,11 +52,11 @@ const GameCard = ({game}) => {
     const {id, name, released, background_image, rating} = game;
 
     return (
-        <GameCardContainer>
+        <GameCardContainer href={`/games/${id}`}>
             <GamePoster src={background_image} alt={name}/>
             <GameContent>
                 <GameTitle>
-                    <Link href={`/game/${id}`}>{name}</Link>
+                  {name}
                 </GameTitle>
                 <GameRating>Rating: {rating}</GameRating>
                 <GameReleaseDate>Release Date: {released}</GameReleaseDate>

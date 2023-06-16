@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import GameCard from "../../core/components/GameCard/GameCard";
 
 const GameListWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 20px;
+  display: flex;
+  flex-wrap:wrap;
+  gap: 20px;
   padding: 20px;
 `;
 
