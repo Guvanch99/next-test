@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import { getGames } from "../../../core/api/api";
 
 function useInfiniteScroll(isLoading){
-  const [page, setPage]=useState(0)
+  const [page, setPage]=useState(1)
   useEffect(() => {
     function handleScroll() {
       if (
@@ -32,11 +32,11 @@ export const useInfiniteFetch=(initialState)=>{
   const page= useInfiniteScroll(isLoading)
 
   useEffect(()=>{
-    if(!page){
+    if(page === 1){
       return
     }
     setIsLoading(true);
-    getGames(page).then((res)=>setGameData(prev=>[...res, ...prev]))
+    getGames({page}).then((res)=>setGameData(prev=>[...prev, ...res]))
     setIsLoading(false);
 
   },[page])
