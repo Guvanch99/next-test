@@ -10,10 +10,9 @@ export async function getServerSideProps() {
 
 export default function Home({ games }) {
     return (
-        <div>
-            <h1>Game List</h1>
+        <>
             <GameListPage data={games} />
-        </div>
+        </>
     );
 }
 

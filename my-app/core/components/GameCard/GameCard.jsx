@@ -1,52 +1,70 @@
 import React from 'react';
 import styled from 'styled-components';
+import Link from "next/link";
 
-const GameCardWrapper = styled.div`
-  background-color: #222;
-  color: #fff;
-  padding: 20px;
-  border-radius: 8px;
+const GameCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 16px;
+  background-color: #4f4d4d;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
 `;
 
-const GameImage = styled.img`
+const GameTitle = styled.h2`
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+
+  &:hover {
+    color: #0000FFFF;
+  }
+`;
+
+const GamePoster = styled.img`
   width: 100%;
-  max-height: 200px;
+  height: 100%;
   object-fit: cover;
   border-radius: 4px;
 `;
 
-const GameName = styled.h3`
+const GameContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 10px;
-  font-size: 18px;
 `;
 
-const GameReleased = styled.p`
+const GameRating = styled.div`
+  font-size: 16px;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 4px;
+`;
+
+const GameReleaseDate = styled.div`
   font-size: 14px;
-  opacity: 0.8;
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 4px;
 `;
 
-const GameRating = styled.p`
-  font-size: 14px;
-  opacity: 0.8;
-`;
+const GameCard = ({game}) => {
+    const {id, name, released, background_image, rating} = game;
 
-const GameCard = ({ game }) => {
-/*
-    const { name, released, background_image, rating } = game;
-*/
-
-    console.log(game?.name, game?.released)
     return (
-        <div>Game</div>
-/*        <GameCardWrapper>
-            <GameImage src={background_image} alt={name} />
-            <div>
-                <GameName>{name}</GameName>
-                <GameReleased>Release Date: {released}</GameReleased>
-            </div>
-            <GameRating> Rating: {rating} </GameRating>
-        </GameCardWrapper>*/
-    );
+        <GameCardContainer>
+            <GamePoster src={background_image} alt={name}/>
+            <GameContent>
+                <GameTitle>
+                    <Link href={`/game/${id}`}>{name}</Link>
+                </GameTitle>
+                <GameRating>Rating: {rating}</GameRating>
+                <GameReleaseDate>Release Date: {released}</GameReleaseDate>
+            </GameContent>
+        </GameCardContainer>);
 };
 
 export default GameCard;
+

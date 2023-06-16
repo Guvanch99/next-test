@@ -60,7 +60,7 @@ const GameSlider = ({ images }) => {
 
     return (
         <SliderContainer>
-            <SlideImage src={activeImage} alt="Active Slide" isActive={true} />
+            <SlideImage src={activeImage} alt="Active Slide" />
             <ThumbnailContainer>
                 {images.map((screenshot, index) => (
                     <ThumbnailImage

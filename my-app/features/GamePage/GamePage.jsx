@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
 import Slider from "../../core/components/Slider/Slider";
 
 const GamePageContainer = styled.main`
@@ -45,7 +46,7 @@ const GameDescription = styled.p`
   margin-bottom: 10px;
 `;
 
-const GameWebsiteLink = styled.a`
+const GameWebsiteLink = styled.span`
   font-size: 16px;
   margin-bottom: 10px;
   color: blue;
@@ -65,9 +66,11 @@ const GamePage = ({game, screenshots}) => {
         <GamePageContainer>
             <GameInfo>
                 <GameTitle>{name}</GameTitle>
-                <GameWebsiteLink href={website} target="_blank" rel="noopener noreferrer">
-                    Visit Website
-                </GameWebsiteLink>
+                <Link href={website} target="_blank" rel="noopener noreferrer">
+                    <GameWebsiteLink>
+                        Visit Website
+                    </GameWebsiteLink>
+                </Link>
                 <GamePoster src={background_image} alt={name}/>
                 <GameRating>Rating: {rating}</GameRating>
                 <GameReleaseDate>Release Date: {released}</GameReleaseDate>

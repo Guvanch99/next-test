@@ -4,17 +4,25 @@ import GameCard from "../../core/components/GameCard/GameCard";
 
 const GameListWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
+  padding: 20px;
 `;
 
-const GameList = ({ data }) => {
+const Header = styled.h1`
+  padding: 20px;
+`;
+
+const GameList = ({data}) => {
     return (
-        <GameListWrapper>
-            {data.map((game) => (
-                <GameCard key={game.id} game={game} />
-            ))}
-        </GameListWrapper>
+        <>
+            <Header>Game List</Header>
+            <GameListWrapper>
+                {data.map((game) => (
+                    <GameCard key={game.id} game={game}/>
+                ))}
+            </GameListWrapper>
+        </>
     );
 };
 
