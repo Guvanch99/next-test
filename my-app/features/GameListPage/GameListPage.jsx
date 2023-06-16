@@ -5,19 +5,20 @@ import {useInfiniteFetch} from "./hooks/useInfiniteFetch";
 
 const GameListWrapper = styled.div`
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   padding: 20px;
 `;
 
 const Header = styled.h1`
+  text-align: center;
   padding: 20px;
 `;
 
 const GameList = ({data}) => {
- const {gameData} = useInfiniteFetch(data)
+    const {gameData} = useInfiniteFetch(data)
 
-  console.log('gameData', gameData)
     return (
         <>
             <Header>Game List</Header>
