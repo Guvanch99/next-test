@@ -1,47 +1,53 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import { getGames } from "../../../core/api/api";
 
-function useInfiniteScroll(isLoading){
-  const [page, setPage]=useState(2)
-  useEffect(() => {
-    function handleScroll() {
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
-      ) {
-        if (!isLoading) {
-          setPage((prevPage) => prevPage + 1);
-        }
-      }
-    }
 
-    window.addEventListener('scroll', handleScroll);
+export const useInfiniteFetch=(setData, setIsLoading)=>{
+
+  const [page, setPage]=useState(1)
+
+  const observerTarget = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          setIsLoading(true)
+          getGames({page})
+            .then((rest)=>setData(prev=>[...prev, ...rest]))
+            .then(()=>{
+            setIsLoading(false)
+            setPage(prev=>prev+1)
+          })
+
+        }
+      },
+      {
+        root: null,
+        rootMargin: '20px',
+        threshold: 0.3
+      }
+    );
+
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      if (observerTarget.current) {
+        observer.unobserve(observerTarget.current);
+      }
     };
-  }, [isLoading]);
+  }, [observerTarget, page]);
 
-  return page
-}
-
-
-export const useInfiniteFetch=(initialState)=>{
-  const [gameData, setGameData]=useState(initialState)
-  const [isLoading, setIsLoading] = useState(false)
-  const page= useInfiniteScroll(isLoading)
-
-  useEffect(()=>{
-    if(page === 1){
-      return
-    }
-    setIsLoading(true);
-    getGames({page}).then((res)=>setGameData(prev=>[...prev, ...res]))
-    setIsLoading(false);
-
-  },[page])
-
-  return{
-    gameData
+  return {
+    observerTarget
   }
 }
+
+
+
+
+
+
+

@@ -17,7 +17,7 @@ export const getGames = async (params={}) => {
     try {
         console.log(API_URL, API_KEY)
         const { data } = await api.get('/games', {
-            params: { ...params, page_size: 4, key: API_KEY }
+            params: { ...params, page_size: 10, key: API_KEY }
         });
 
         return data.results;
