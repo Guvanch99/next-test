@@ -4,6 +4,7 @@ import GameCard from "../../core/components/GameCard/GameCard";
 import {useInfiniteFetch} from "./hooks/useInfiniteFetch";
 import {useFilterGameData} from "./hooks/useFilterGameData";
 import Loader from "../../core/components/Loader/Loader";
+import {Filters} from "../../core/components/Filters/Search";
 
 const GameListWrapper = styled.div`
   display: flex;
@@ -19,32 +20,33 @@ const Header = styled.h1`
 `;
 
 
-function useGameList(initialGameData){
-  const [isLoading,setIsLoading]=useState(false)
-  const [gameData, setGameData]=useState(initialGameData)
-  const { observerTarget} = useInfiniteFetch(setGameData, setIsLoading)
-  const { handleChangeFilter } = useFilterGameData(setGameData, setIsLoading)
+function useGameList(initialGameData) {
+    const [isLoading, setIsLoading] = useState(false)
+    const [gameData, setGameData] = useState(initialGameData)
+    const {handleChangeFilter, params} = useFilterGameData(setGameData, setIsLoading)
+    const {observerTarget} = useInfiniteFetch(setGameData, setIsLoading, params)
 
-  return{
-    isLoading,
-    gameData,
-    observerTarget,
-    handleChangeFilter
-  }
+    return {
+        isLoading,
+        gameData,
+        observerTarget,
+        handleChangeFilter
+    }
 }
 
-const GameList = ({ data:initialGameData }) => {
-  const {isLoading, gameData, handleChangeFilter, observerTarget} = useGameList(initialGameData)
+const GameList = ({data: initialGameData, platforms}) => {
+    const {isLoading, gameData, handleChangeFilter, observerTarget} = useGameList(initialGameData)
 
     return (
         <>
             <Header>Game List</Header>
+            <Filters platforms={platforms} handleChangeFilter={handleChangeFilter}/>
             <GameListWrapper>
-              {gameData.map((game) => (<GameCard key={game.id} game={game}/>))}
-              { isLoading
-                ? <Loader/>
-                : <div ref={observerTarget} />
-              }
+                {gameData.map((game) => (<GameCard key={game.id} game={game}/>))}
+                {isLoading
+                    ? <Loader/>
+                    : <div ref={observerTarget}/>
+                }
             </GameListWrapper>
         </>
     );

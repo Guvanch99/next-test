@@ -2,8 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import { getGames } from "../../../core/api/api";
 
 
-export const useInfiniteFetch=(setData, setIsLoading)=>{
-
+export const useInfiniteFetch=(setData, setIsLoading, params)=>{
   const [page, setPage]=useState(1)
 
   const observerTarget = useRef(null);
@@ -13,7 +12,7 @@ export const useInfiniteFetch=(setData, setIsLoading)=>{
       entries => {
         if (entries[0].isIntersecting) {
           setIsLoading(true)
-          getGames({page})
+          getGames({page, ...params})
             .then((rest)=>setData(prev=>[...prev, ...rest]))
             .then(()=>{
             setIsLoading(false)
@@ -38,7 +37,7 @@ export const useInfiniteFetch=(setData, setIsLoading)=>{
         observer.unobserve(observerTarget.current);
       }
     };
-  }, [observerTarget, page]);
+  }, [observerTarget, page, params]);
 
   return {
     observerTarget

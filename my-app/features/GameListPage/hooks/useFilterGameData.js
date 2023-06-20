@@ -4,8 +4,8 @@ import {getGames} from "../../../core/api/api";
 export function useFilterGameData(setGameData, setIsLoading){
   const [params, setParams]=useState({
     platform:'',
-    sort:'',
-    game:''
+    ordering:'',
+    search:''
   })
 
   useEffect(()=>{
@@ -14,15 +14,16 @@ export function useFilterGameData(setGameData, setIsLoading){
       setGameData(res)
     })
     setIsLoading(false)
-  },[params])
+  },[params.search, params.ordering, params.platform])
 
 
   return {
-    handleChangeFilter:useCallback((name, value)=>{
+    handleChangeFilter:useCallback(({target: {value, name}})=>{
       setParams(prevParams=>({
         ...prevParams, [name]:value
       }))
-    },[])
+    },[]),
+    params
   }
 
 }
