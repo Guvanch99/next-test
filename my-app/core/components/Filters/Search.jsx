@@ -16,6 +16,10 @@ const FilterLabel = styled.label`
   margin-right: 8px;
 `;
 
+const FilterSelect = styled.select`
+  width: 110px;
+`;
+
 export const Filters = ({platforms, handleChangeFilter}) => {
     const [search, setSearch] = useState('')
     const debouncedSearch = useDebounce(search, 500)
@@ -39,22 +43,22 @@ export const Filters = ({platforms, handleChangeFilter}) => {
             </div>
             <div>
                 <FilterLabel htmlFor="platform">Filter by platform:</FilterLabel>
-                <select id="platform" name="platform" onChange={handleChangeFilter}>
+                <FilterSelect id="platform" name="platform" onChange={handleChangeFilter}>
                     <option value="">All</option>
                     {platforms.map((platform) => (
                         <option key={platform.id} value={platform.id}>{platform.name}</option>
                     ))}
-                </select>
+                </FilterSelect>
             </div>
             <div>
                 <FilterLabel htmlFor="sortBy">Sort by:</FilterLabel>
-                <select id="sortBy" name="ordering" onChange={handleChangeFilter}>
+                <FilterSelect id="sortBy" name="ordering" onChange={handleChangeFilter}>
                     <option value="">None</option>
                     <option value="rating">↑ rating</option>
                     <option value="-rating">↓ rating</option>
                     <option value="released">↑ release</option>
                     <option value="-released">↓ release</option>
-                </select>
+                </FilterSelect>
             </div>
         </SearchBar>
     )
