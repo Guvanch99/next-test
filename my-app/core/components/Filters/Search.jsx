@@ -7,6 +7,7 @@ const SearchBar = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   padding-bottom: 16px;
   gap: 8px;
 `;
