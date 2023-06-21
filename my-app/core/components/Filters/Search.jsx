@@ -21,13 +21,13 @@ const FilterSelect = styled.select`
 `;
 
 export const Filters = ({platforms, handleChangeFilter}) => {
-    const [search, setSearch] = useState('')
+    const [search, setSearch] = useState(null)
     const debouncedSearch = useDebounce(search, 500)
 
     const handleSetSearch = ({target: {value}}) => setSearch(value)
 
     useEffect(() => {
-        if (!debouncedSearch) {
+        if (debouncedSearch === null) {
             return
         }
 
