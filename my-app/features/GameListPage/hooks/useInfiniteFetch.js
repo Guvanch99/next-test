@@ -13,11 +13,16 @@ export const useInfiniteFetch=(setData, setIsLoading, params)=>{
         if (entries[0].isIntersecting) {
           setIsLoading(true)
           getGames({page, ...params})
-            .then((rest)=>setData(prev=>[...prev, ...rest]))
-            .then(()=>{
-            setIsLoading(false)
-            setPage(prev=>prev+1)
-          })
+            .then((rest)=>{
+              if(!rest){
+                setData([])
+                setIsLoading(false)
+                return
+              }
+              setData(prev=>[...prev, ...rest])
+              setIsLoading(false)
+              setPage(prev=>prev+1)
+            })
 
         }
       },

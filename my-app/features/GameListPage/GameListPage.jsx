@@ -12,6 +12,7 @@ const GameListWrapper = styled.div`
   justify-content: center;
   gap: 20px;
   padding: 20px;
+  height: 100%;
 `;
 
 const Header = styled.h1`
@@ -19,6 +20,10 @@ const Header = styled.h1`
   padding: 20px;
 `;
 
+
+const TextEmpty=styled.div`
+  margin-top: 50px;
+`
 
 function useGameList(initialGameData) {
     const [isLoading, setIsLoading] = useState(false)
@@ -43,6 +48,7 @@ const GameList = ({data: initialGameData, platforms}) => {
             <Filters platforms={platforms} handleChangeFilter={handleChangeFilter}/>
             <GameListWrapper>
                 {gameData.map((game) => (<GameCard key={game.id} game={game}/>))}
+                {!gameData.length && !isLoading && <TextEmpty>No Data </TextEmpty>}
                 {isLoading
                     ? <Loader/>
                     : <div ref={observerTarget}/>

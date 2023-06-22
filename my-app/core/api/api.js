@@ -1,28 +1,24 @@
-import axios from "axios";
 import {API_KEY, API_URL} from "../../config";
 
-export const api = axios.create({
-    baseURL: `${API_URL}`,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    params: {
-        key: API_KEY
-    }
-})
-
 export const getGameById = async id => {
-    const { data } = await api.get(`/games/${id}`)
-    return data
+    try {
+        const response= await fetch(`${API_URL}/games/${id}?key=${API_KEY}`)
+        return await response.json()
+    }catch (error){
+        throw new Error(error)
+    }
 }
 
-export const getGames = async (params={}) => {
-    try {
-        const { data } = await api.get('/games', {
-            params: { ...params, page_size: 12}
-        });
+export const getGames = async (getGamesParams={}) => {
+    const params = { ...getGamesParams, page_size: '12' };
+    const queryString = new URLSearchParams(params).toString();
 
-        return data.results;
+    try {
+        const response= await fetch(`${API_URL}/games?key=${API_KEY}&${queryString}`)
+        const responseToJson= await response.json()
+
+        return responseToJson.results
+
     } catch (error) {
         console.error('Error getting games:', error);
         throw error;
@@ -31,8 +27,8 @@ export const getGames = async (params={}) => {
 
 export const getScreenshotsById = async (gameId) => {
     try {
-        const { data } = await api.get(`/games/${gameId}/screenshots`);
-        return data.results;
+        const response= await fetch(`${API_URL}/games/${gameId}/screenshots?key=${API_KEY}`)
+        return await response.json()
     } catch (error) {
         console.error('Error getting games:', error);
         throw error;
@@ -41,8 +37,9 @@ export const getScreenshotsById = async (gameId) => {
 
 export const getPlatforms = async () => {
     try {
-        const { data } = await api.get('/platforms');
-        return data.results;
+        const response= await fetch(`${API_URL}/platforms?key=${API_KEY}`)
+        const responseToJson= await response.json()
+        return responseToJson.results
     } catch (error) {
         console.error('Error getting games:', error);
         throw error;
